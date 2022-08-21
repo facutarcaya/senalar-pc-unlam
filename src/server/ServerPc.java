@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import app.InitConnection;
+
 public class ServerPc implements Runnable
 {
     private Thread thread;
@@ -15,12 +17,14 @@ public class ServerPc implements Runnable
     private Socket socket;
     private DataInputStream dataInputStream;
     private DataOutputStream dataOutputStream;
+    private InitConnection application;
 
-    public ServerPc()
+    public ServerPc(InitConnection application)
     {
         this.thread = new Thread( this );
         this.thread.setPriority( Thread.NORM_PRIORITY );
         this.thread.start();
+        this.application = application;
     }
 
     @Override
@@ -49,6 +53,7 @@ public class ServerPc implements Runnable
             e.printStackTrace();
         }
         System.out.println( "client connected" );
+        this.application.establishConnection();
 
         // create input and output streams
         try
