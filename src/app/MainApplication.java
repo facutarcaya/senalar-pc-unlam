@@ -63,10 +63,10 @@ public class MainApplication {
 		
 		JLabel senalarIconLbl = new JLabel("");
 		senalarIconLbl.setBounds(76, 20, 200, 200);
-		Image logoSeñalarImage = new ImageIcon(MainApplication.class.getResource("/images/se\u00F1alar-logo.png")).getImage();
+		Image logoSenalarImage = new ImageIcon(MainApplication.class.getResource("/images/se\u00F1alar-logo.png")).getImage();
 		panel.setLayout(null);
 		
-		senalarIconLbl.setIcon(new ImageIcon(SenalarUtils.getScaledImage(logoSeñalarImage, 200, 200)));
+		senalarIconLbl.setIcon(new ImageIcon(SenalarUtils.getScaledImage(logoSenalarImage, 200, 200)));
 		panel.add(senalarIconLbl);
 		
 		JLabel senalarTitleLbl = new JLabel("Se\u00F1alAR");
