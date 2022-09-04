@@ -6,14 +6,14 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Daniel/Documents/GitHub/senalar-pc-unlam/lib/cmu_time_awb.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Daniel/Documents/GitHub/senalar-pc-unlam/lib/cmu_us_kal.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Daniel/Documents/GitHub/senalar-pc-unlam/lib/cmudict04.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Daniel/Documents/GitHub/senalar-pc-unlam/lib/cmulex.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Daniel/Documents/GitHub/senalar-pc-unlam/lib/cmutimelex.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Daniel/Documents/GitHub/senalar-pc-unlam/lib/en_us.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Daniel/Documents/GitHub/senalar-pc-unlam/lib/freetts.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Daniel/Documents/GitHub/senalar-pc-unlam/lib/freetts-jsapi10.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Daniel/Documents/GitHub/senalar-pc-unlam/lib/mbrola.jar"/>
+	<classpathentry kind="lib" path="./lib/cmu_time_awb.jar"/>
+	<classpathentry kind="lib" path="./lib/cmu_us_kal.jar"/>
+	<classpathentry kind="lib" path="./lib/cmudict04.jar"/>
+	<classpathentry kind="lib" path="./lib/cmulex.jar"/>
+	<classpathentry kind="lib" path="./lib/cmutimelex.jar"/>
+	<classpathentry kind="lib" path="./lib/en_us.jar"/>
+	<classpathentry kind="lib" path="./lib/freetts.jar"/>
+	<classpathentry kind="lib" path="./lib/freetts-jsapi10.jar"/>
+	<classpathentry kind="lib" path="./lib/mbrola.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
