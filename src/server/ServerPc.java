@@ -103,6 +103,7 @@ public class ServerPc implements Runnable
                 	//Acá deberiamos utilizar TTS para transcribir la palabra a voz
                 	//System.getProperty("java.classpath");
                 	hablar(palabra);
+                	palabra = "";
                 }else {
                 	palabra = palabra + String.valueOf(letra);
                 }
