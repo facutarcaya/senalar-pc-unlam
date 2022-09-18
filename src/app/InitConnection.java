@@ -8,6 +8,8 @@ import java.net.UnknownHostException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import server.ServerPc;
@@ -24,7 +26,7 @@ public class InitConnection extends JFrame {
 	private JPanel contentPane;
 	private JPanel waitingConnectionPanel;
 	private JPanel connectionEstablishedPanel;
-	
+	private JTextArea words;
 	private ServerPc serverPc;
 
 	/**
@@ -93,7 +95,7 @@ public class InitConnection extends JFrame {
 		instruction2Lbl.setBounds(10, 333, 664, 36);
 		waitingConnectionPanel.add(instruction2Lbl);
 		
-		JLabel ipAddressLbl = new JLabel("Dirección IP");
+		JLabel ipAddressLbl = new JLabel("Direcciï¿½n IP");
 		ipAddressLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		ipAddressLbl.setFont(new Font("Raleway Black", Font.BOLD, 30));
 		ipAddressLbl.setBounds(10, 380, 664, 36);
@@ -117,6 +119,26 @@ public class InitConnection extends JFrame {
 		establishedConn.setBounds(10, 333, 664, 36);
 		connectionEstablishedPanel.add(establishedConn);
 		
+		JLabel receivedWords = new JLabel("Palabras recibidas:");
+		receivedWords.setHorizontalAlignment(SwingConstants.LEFT);
+		receivedWords.setFont(new Font("Raleway Medium", Font.BOLD, 16));
+		receivedWords.setBounds(10, 375, 664, 20);
+		connectionEstablishedPanel.add(receivedWords);
+		
+		words = new JTextArea("");
+		words.setFont(new Font("Raleway Medium", Font.PLAIN, 16));
+		//receivedWord.setBounds(10, 400, 664, 140);
+		//connectionEstablishedPanel.add(receivedWord);
+		words.setLineWrap(true);
+		words.setWrapStyleWord(true);
+		words.setEditable(false);
+
+		JScrollPane scrollPane = new JScrollPane(words);
+		scrollPane.setBounds(10, 400, 664, 140);
+		scrollPane.getViewport().setOpaque(true);
+		scrollPane.setOpaque(true);
+		connectionEstablishedPanel.add(scrollPane);
+		
 		JLabel successLogoLbl = new JLabel("");
 		Image successLogoImage = new ImageIcon(InitConnection.class.getResource("/images/success.png")).getImage();
 		successLogoLbl.setIcon(new ImageIcon(SenalarUtils.getScaledImage(successLogoImage, 250, 250)));
@@ -128,5 +150,9 @@ public class InitConnection extends JFrame {
 	public void establishConnection() {
 		waitingConnectionPanel.setVisible(false);
 		connectionEstablishedPanel.setVisible(true);
+	}
+	
+	public void writeWord(String word) {
+		words.setText(words.getText()+word+" ");
 	}
 }

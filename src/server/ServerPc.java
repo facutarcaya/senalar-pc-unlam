@@ -85,7 +85,7 @@ public class ServerPc implements Runnable
             System.out.println( "failed to send" );
             e.printStackTrace();
         }
-        String palabra = "";
+        String word = "";
 
         // placeholder recv loop
         while ( true )
@@ -94,18 +94,20 @@ public class ServerPc implements Runnable
             {
             	
                 byte test = this.dataInputStream.readByte();
-                char letra = (char) test;
+                char character = (char) test;
                 System.out.println( "byte received: "+test );
-                System.out.println( "letra recibida: "+letra );
+                System.out.println( "character received: "+character );
                 
-                if(letra=='|') {
-                	System.out.println( "palabra: "+palabra );    
-                	//Acá deberiamos utilizar TTS para transcribir la palabra a voz
+                if(character=='|') {
+                	System.out.println( "word received: "+word );    
+                	
                 	//System.getProperty("java.classpath");
-                	hablar(palabra);
-                	palabra = "";
+                	// use of TTS to translate the word
+                	this.application.writeWord(word);
+                	speak(word);
+                	word = "";
                 }else {
-                	palabra = palabra + String.valueOf(letra);
+                	word = word + String.valueOf(character);
                 }
                 
 
@@ -121,13 +123,21 @@ public class ServerPc implements Runnable
         System.out.println( "server thread stopped" );
     }
     
-    public void hablar(String palabra) {
+    public void speak(String word) {
+    	
+    	//AudioInputStream audioIn = AudioSystem.getAudioInputStream("");
+
+    	//Mixer.Info[] arrMixerInfo = AudioSystem.getMixerInfo();
+    	
+    	//System.out.println("Vector de arrMixer: "+ arrMixerInfo);
+    	
+    	
     	System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
     	//System.setProperty("mbrola.base", "C:/mbrola/mbrola");
     	vocesI=VoiceManager.getInstance();
     	//voz=vocesI.getVoice("mbrola_us1");
     	voz=vocesI.getVoice("kevin16");
     	voz.allocate();
-    	voz.speak(palabra);
+    	voz.speak(word);
     }
 }
