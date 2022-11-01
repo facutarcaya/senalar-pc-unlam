@@ -15,9 +15,9 @@ public class ClientTest {
         printwriter = new PrintWriter(client.getOutputStream(),true);
         printwriter.write("Hola|");  //write the message to output stream
         printwriter.write("Como estas?|"); 
-        printwriter.write("Todo bien por suerte|"); 
-        printwriter.write("Como anda la familia?|"); 
-        printwriter.write("Tres tristes tigres tragan trigo en un trigal|"); 
+        //printwriter.write("Todo bien por suerte|"); 
+        //printwriter.write("Como anda la familia?|"); 
+        //printwriter.write("Tres tristes tigres tragan trigo en un trigal|"); 
         
         printwriter.flush();
         printwriter.close();

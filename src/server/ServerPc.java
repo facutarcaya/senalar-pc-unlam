@@ -9,9 +9,14 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import javax.sound.midi.Synthesizer;
+
 import app.InitConnection;
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.advanced.AdvancedPlayer;
 
 import com.sun.speech.freetts.VoiceManager;
+import com.darkprograms.speech.synthesiser.SynthesiserV2;
 import com.sun.speech.freetts.Voice;
 
 public class ServerPc implements Runnable
@@ -26,6 +31,9 @@ public class ServerPc implements Runnable
     VoiceManager vocesI;
     Voice voz;
 
+    SynthesiserV2 synthesizer = new SynthesiserV2("AIzaSyBOti4mM-6x9WDnZIjIeyEU21OpBXqWBgw");
+   
+    
     public ServerPc(InitConnection application)
     {
         this.thread = new Thread( this );
@@ -123,21 +131,50 @@ public class ServerPc implements Runnable
         System.out.println( "server thread stopped" );
     }
     
-    public void speak(String word) {
-    	
-    	//AudioInputStream audioIn = AudioSystem.getAudioInputStream("");
-
-    	//Mixer.Info[] arrMixerInfo = AudioSystem.getMixerInfo();
-    	
-    	//System.out.println("Vector de arrMixer: "+ arrMixerInfo);
-    	
-    	
-    	System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
-    	//System.setProperty("mbrola.base", "C:/mbrola/mbrola");
-    	vocesI=VoiceManager.getInstance();
-    	//voz=vocesI.getVoice("mbrola_us1");
-    	voz=vocesI.getVoice("kevin16");
-    	voz.allocate();
-    	voz.speak(word);
-    }
+	public void speak(String text) {
+		System.out.println(text);
+		
+		//Create a new Thread because JLayer is running on the current Thread and will make the application to lag
+		//Thread thread = new Thread(() -> {
+			try {
+				
+				//Create a JLayer instance
+				synthesizer.setLanguage("es-US");
+				AdvancedPlayer player = new AdvancedPlayer(synthesizer.getMP3Data(text));
+				player.play();
+				
+				System.out.println("Successfully got back synthesizer data");
+				
+			} catch (IOException | JavaLayerException e) {
+				
+				e.printStackTrace(); //Print the exception ( we want to know , not hide below our finger , like many developers do...)
+				
+			}
+		//});
+		
+		//We don't want the application to terminate before this Thread terminates
+		//thread.setDaemon(false);
+		
+		//Start the Thread
+		//thread.start();
+		
+	}
+    
+//    public void speak(String word) {
+//    	
+//    	//AudioInputStream audioIn = AudioSystem.getAudioInputStream("");
+//
+//    	//Mixer.Info[] arrMixerInfo = AudioSystem.getMixerInfo();
+//    	
+//    	//System.out.println("Vector de arrMixer: "+ arrMixerInfo);
+//    	
+//    	
+//    	System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
+//    	//System.setProperty("mbrola.base", "C:/mbrola/mbrola");
+//    	vocesI=VoiceManager.getInstance();
+//    	//voz=vocesI.getVoice("mbrola_us1");
+//    	voz=vocesI.getVoice("kevin16");
+//    	voz.allocate();
+//    	voz.speak(word);
+//    }
 }
