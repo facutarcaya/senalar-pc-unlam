@@ -6,8 +6,11 @@ import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.sound.midi.Synthesizer;
 
@@ -94,26 +97,37 @@ public class ServerPc implements Runnable
             e.printStackTrace();
         }
         String word = "";
-
+        int n=0;
         // placeholder recv loop
         while ( true )
         {
+        	
             try
             {
             	
                 byte test = this.dataInputStream.readByte();
-                char character = (char) test;
+                char character = (char) (test & 0xFF);
+               
                 System.out.println( "byte received: "+test );
-                System.out.println( "character received: "+character );
+                //System.out.println( "character received: "+character );
+                byte bytesArray[];
                 
+                bytesArray = new byte[20];
+                //byte [20] bytes;
                 if(character=='|') {
-                	System.out.println( "word received: "+word );    
-                	
+                	  
+                	bytesArray[n]=test;
                 	//System.getProperty("java.classpath");
                 	// use of TTS to translate the word
-                	this.application.writeWord(word);
-                	speak(word);
+                	
+                	//String word_decoded = new String(word.getBytes(),"UTF-8"); // Charset with which bytes were encoded
+                	byte[] bytes = word.getBytes(StandardCharsets.ISO_8859_1);
+                	String wordUtf8 = new String(bytes, StandardCharsets.UTF_8);
+                	System.out.println( "word received: "+wordUtf8 );  
+                	this.application.writeWord(wordUtf8);
+                	speak(wordUtf8);
                 	word = "";
+                	
                 }else {
                 	word = word + String.valueOf(character);
                 }
@@ -126,6 +140,7 @@ public class ServerPc implements Runnable
                 e.printStackTrace();
                 break;
             }
+            n++;
         }
 
         System.out.println( "server thread stopped" );
@@ -139,7 +154,7 @@ public class ServerPc implements Runnable
 			try {
 				
 				//Create a JLayer instance
-				synthesizer.setLanguage("es-US");
+				synthesizer.setLanguage("es");
 				AdvancedPlayer player = new AdvancedPlayer(synthesizer.getMP3Data(text));
 				player.play();
 				
@@ -159,5 +174,7 @@ public class ServerPc implements Runnable
 		thread.start();
 		
 	}
+	
+
    
 }

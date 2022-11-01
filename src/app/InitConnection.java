@@ -3,6 +3,7 @@ package app;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Image;
+import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -152,7 +153,9 @@ public class InitConnection extends JFrame {
 		connectionEstablishedPanel.setVisible(true);
 	}
 	
-	public void writeWord(String word) {
+	public void writeWord(String word) throws UnsupportedEncodingException {
+		
+	
 		words.setText(words.getText()+word+" ");
 	}
 }
