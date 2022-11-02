@@ -11,7 +11,7 @@ public class ClientTest {
 		Socket client;
 		PrintWriter printwriter;
 		
-		client = new Socket("192.168.56.1", 12345);  //connect to server
+		client = new Socket("192.168.0.115", 12345);  //connect to server
         printwriter = new PrintWriter(client.getOutputStream(),true);
         //printwriter.write("Hola|");  //write the message to output stream
         Thread.sleep(2000);

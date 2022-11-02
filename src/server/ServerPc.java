@@ -97,6 +97,7 @@ public class ServerPc implements Runnable
             e.printStackTrace();
         }
         String word = "";
+        String language = "";
         int n=0;
         // placeholder recv loop
         while ( true )
@@ -110,25 +111,30 @@ public class ServerPc implements Runnable
                
                 System.out.println( "byte received: "+test );
                 //System.out.println( "character received: "+character );
-                byte bytesArray[];
                 
-                bytesArray = new byte[20];
                 //byte [20] bytes;
                 if(character=='|') {
-                	  
-                	bytesArray[n]=test;
                 	//System.getProperty("java.classpath");
                 	// use of TTS to translate the word
                 	
                 	//String word_decoded = new String(word.getBytes(),"UTF-8"); // Charset with which bytes were encoded
                 	byte[] bytes = word.getBytes(StandardCharsets.ISO_8859_1);
                 	String wordUtf8 = new String(bytes, StandardCharsets.UTF_8);
-                	System.out.println( "word received: "+wordUtf8 );  
+                	System.out.println( "word received: "+ wordUtf8 );
+                	
                 	this.application.writeWord(wordUtf8);
-                	speak(wordUtf8);
+                	
+                	if (wordUtf8.length() > 1) {
+                		speak(language, wordUtf8.toLowerCase());
+                	} else {
+                		speak(language, wordUtf8);
+                	}
                 	word = "";
                 	
-                }else {
+                } else if(character=='/') { 
+                	language = word;
+                	word = "";
+                } else {
                 	word = word + String.valueOf(character);
                 }
                 
@@ -146,7 +152,7 @@ public class ServerPc implements Runnable
         System.out.println( "server thread stopped" );
     }
     
-	public void speak(String text) {
+	public void speak(String language, String text) {
 		System.out.println(text);
 		
 		//Create a new Thread because JLayer is running on the current Thread and will make the application to lag
@@ -154,7 +160,7 @@ public class ServerPc implements Runnable
 			try {
 				
 				//Create a JLayer instance
-				synthesizer.setLanguage("es");
+				synthesizer.setLanguage(language);
 				AdvancedPlayer player = new AdvancedPlayer(synthesizer.getMP3Data(text));
 				player.play();
 				
